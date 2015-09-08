@@ -96,18 +96,22 @@ public class LocalImageUploaderImpl extends AbstractImageUploader {
         int imageWidth = image.getWidth();
         int imageHeight = image.getHeight();
 
-        if ((float)height / width != (float)imageWidth / imageHeight) {
-            if (imageWidth > imageHeight) {
-                image = Thumbnails.of(url).height(height).outputQuality(1.0).asBufferedImage();
+        if (width >= imageWidth && height >= imageHeight ){
+            builder = Thumbnails.of(image).size(imageWidth, imageHeight);
+        }else{
+            if ((float)height / width != (float)imageWidth / imageHeight) {
+                if (imageWidth > imageHeight) {
+
+                    image = Thumbnails.of(url).height(height).outputQuality(0.9).asBufferedImage();
+                } else {
+                    image = Thumbnails.of(url).width(width).outputQuality(0.9).asBufferedImage();
+                }
+                builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height).size(width, height).outputQuality(0.9);
             } else {
-                image = Thumbnails.of(url).width(width).outputQuality(1.0).asBufferedImage();
+                builder = Thumbnails.of(image).size(width, height).outputQuality(0.9);
             }
-            builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height).size(width, height).outputQuality(1.0);
-        } else {
-            builder = Thumbnails.of(image).size(width, height).outputQuality(1.0);
         }
         builder.outputFormat("jpg").toFile(to_url);
-
         return to_url+".jpg";
     }
 
