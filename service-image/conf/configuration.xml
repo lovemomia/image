@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Logger>
+        <Level>INFO</Level>
+    </Logger>
+
+    <Image>
+        <Upload>
+            <Local>
+                <Dir>/data/upload/imgs</Dir>
+            </Local>
+            <Oss>
+                <AccessId>JsG07PUh4wXM4GLE</AccessId>
+                <AccessKey>pNigQyHbnvnpV0tREoYw7Kk2gy2tzk</AccessKey>
+                <EndPoint>http://oss-cn-beijing.aliyuncs.com</EndPoint>
+                <BucketName>-object-test</BucketName>
+            </Oss>
+        </Upload>
+    </Image>
+</Configuration>
