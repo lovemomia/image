@@ -8,7 +8,7 @@ import java.util.List;
 public class ImageFile {
     private static String domain;
 
-    public static void setDomain(String domain) {
+    public void setDomain(String domain) {
         ImageFile.domain = domain;
     }
 
