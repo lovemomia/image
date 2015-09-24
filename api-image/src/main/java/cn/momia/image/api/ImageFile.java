@@ -4,9 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ImageFile {
     public static class Size {
-        protected static final int LARGE = 1;
-        protected static final int MIDDLE = 2;
-        protected static final int SMALL = 3;
+        public static final int LARGE = 1;
+        public static final int MIDDLE = 2;
+        public static final int SMALL = 3;
     }
 
     private static String domain;
