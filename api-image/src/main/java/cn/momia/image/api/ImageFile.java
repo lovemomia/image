@@ -2,9 +2,6 @@ package cn.momia.image.api;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ImageFile {
     private static String domain;
 
@@ -37,17 +34,6 @@ public class ImageFile {
 
         int indexOfDot = path.lastIndexOf(".");
         if (indexOfDot > 0) return domain + path.substring(0, indexOfDot) + "_" + size + path.substring(indexOfDot);
-
         return domain + path + "_" + size;
-    }
-
-    public static List<String> urls(List<String> paths) {
-        List<String> urls = new ArrayList<String>();
-
-        for (String path : paths) {
-            urls.add(url(path));
-        }
-
-        return urls;
     }
 }

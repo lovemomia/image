@@ -27,8 +27,7 @@ import java.util.List;
 public class UploadController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
-    @Autowired
-    private ImageUploader imageUploader;
+    @Autowired private ImageUploader imageUploader;
 
     @RequestMapping(value = "/image", method = { RequestMethod.POST })
     public MomiaHttpResponse uploadImage(HttpServletRequest request) {
@@ -38,8 +37,8 @@ public class UploadController extends BaseController {
 
             return MomiaHttpResponse.SUCCESS(buildResponseData(result));
         } catch (Exception e) {
-            LOGGER.error("fail to upload upload file", e);
-            return MomiaHttpResponse.FAILED("fail to upload upload file");
+            LOGGER.error("fail to upload image file", e);
+            return MomiaHttpResponse.FAILED;
         }
     }
 
