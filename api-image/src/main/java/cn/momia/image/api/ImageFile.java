@@ -3,6 +3,12 @@ package cn.momia.image.api;
 import org.apache.commons.lang3.StringUtils;
 
 public class ImageFile {
+    public static class Size {
+        protected static final int LARGE = 1;
+        protected static final int MIDDLE = 2;
+        protected static final int SMALL = 3;
+    }
+
     private static String domain;
 
     public void setDomain(String domain) {
