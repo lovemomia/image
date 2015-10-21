@@ -4,14 +4,6 @@
         <Level>INFO</Level>
     </Logger>
 
-    <Database>
-        <Tongqu>
-            <JdbcUrl><![CDATA[jdbc:mysql://120.55.102.12:3306/tongqu?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull]]></JdbcUrl>
-            <Username>tongqu</Username>
-            <Password>Tongqu!@#456</Password>
-        </Tongqu>
-    </Database>
-
     <Image>
         <Upload>
             <Local>
