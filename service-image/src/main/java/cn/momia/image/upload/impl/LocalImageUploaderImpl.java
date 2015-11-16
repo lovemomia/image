@@ -46,8 +46,8 @@ public class LocalImageUploaderImpl extends AbstractImageUploader {
         result.setHeight(savedImage.getHeight());
 
         if (image.isCut()) {
-            String file_800600_url = cutImage(fullPath, 800, 600, getCutImagesUrl(fullPath, 1));
-            String file240180_url = cutImage(file_800600_url, 240, 180, getCutImagesUrl(fullPath, 2));
+            String largeUrl = resizeImage(fullPath, 800, 800, getCutImagesUrl(fullPath, 1));
+            String file240180_url = cutImage(largeUrl, 240, 180, getCutImagesUrl(fullPath, 2));
             cutImage(file240180_url, 90, 90, getCutImagesUrl(fullPath, 3));
         }
 
@@ -72,6 +72,29 @@ public class LocalImageUploaderImpl extends AbstractImageUploader {
                 if (!parent.exists()) parent.mkdirs();
             }
         }
+    }
+
+    private String resizeImage(String url, int width, int height, String to_url) throws IOException {
+        File file = new File(url);
+
+        BufferedImage image = ImageIO.read(file);
+        Thumbnails.Builder<BufferedImage> builder = null;
+
+        int imageWidth = image.getWidth();
+        int imageHeight = image.getHeight();
+
+        if (width >= imageWidth && height >= imageHeight) {
+            builder = Thumbnails.of(image).size(imageWidth, imageHeight);
+        } else {
+            if ((float) width / height > (float) imageWidth / imageHeight) {
+                builder = Thumbnails.of(image).size((int) ((float) imageWidth / imageHeight * height), height).outputQuality(0.9);
+            } else {
+                builder = Thumbnails.of(image).size(width, (int) ((float) imageHeight / imageWidth * width)).outputQuality(0.9);
+            }
+        }
+        builder.outputFormat("jpg").toFile(to_url);
+
+        return to_url + ".jpg";
     }
 
     /**
