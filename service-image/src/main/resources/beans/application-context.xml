@@ -21,4 +21,5 @@
     </bean>
 
     <bean id="imageUploader" class="cn.momia.image.upload.impl.LocalImageUploaderImpl" />
+    <bean id="audioUploader" class="cn.momia.image.upload.impl.LocalAudioUploaderImpl" />
 </beans>

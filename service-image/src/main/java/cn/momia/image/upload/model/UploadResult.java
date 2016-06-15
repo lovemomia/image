@@ -1,6 +1,6 @@
-package cn.momia.image.upload;
+package cn.momia.image.upload.model;
 
-public class ImageUploadResult {
+public class UploadResult {
     private String path;
     private int width;
     private int height;

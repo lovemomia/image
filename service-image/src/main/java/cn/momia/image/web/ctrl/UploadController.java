@@ -2,8 +2,10 @@ package cn.momia.image.web.ctrl;
 
 import cn.momia.common.api.http.MomiaHttpResponse;
 import cn.momia.common.webapp.ctrl.BaseController;
-import cn.momia.image.upload.Image;
-import cn.momia.image.upload.ImageUploadResult;
+import cn.momia.image.upload.AudioUploader;
+import cn.momia.image.upload.model.Audio;
+import cn.momia.image.upload.model.Image;
+import cn.momia.image.upload.model.UploadResult;
 import cn.momia.image.upload.ImageUploader;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.fileupload.FileItem;
@@ -28,12 +30,13 @@ public class UploadController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
     @Autowired private ImageUploader imageUploader;
+    @Autowired private AudioUploader audioUploader;
 
     @RequestMapping(value = "/image", method = { RequestMethod.POST })
     public MomiaHttpResponse uploadImage(HttpServletRequest request) {
         try {
             Image image = parseImage(request);
-            ImageUploadResult result = imageUploader.upload(image);
+            UploadResult result = imageUploader.upload(image);
 
             return MomiaHttpResponse.SUCCESS(buildResponseData(result));
         } catch (Exception e) {
@@ -65,7 +68,7 @@ public class UploadController extends BaseController {
         return image;
     }
 
-    private JSONObject buildResponseData(ImageUploadResult result) {
+    private JSONObject buildResponseData(UploadResult result) {
         JSONObject data = new JSONObject();
 
         data.put("path", result.getPath());
@@ -73,5 +76,35 @@ public class UploadController extends BaseController {
         data.put("height", result.getHeight());
 
         return data;
+    }
+
+    @RequestMapping(value = "/audio", method = { RequestMethod.POST })
+    public MomiaHttpResponse uploadAudio(HttpServletRequest request) {
+        try {
+            Audio audio = parseAudio(request);
+            UploadResult result = audioUploader.upload(audio);
+
+            return MomiaHttpResponse.SUCCESS(buildResponseData(result));
+        } catch (Exception e) {
+            LOGGER.error("fail to upload audio file", e);
+            return MomiaHttpResponse.FAILED;
+        }
+    }
+
+    private Audio parseAudio(HttpServletRequest request) throws IOException, FileUploadException {
+        Audio audio = new Audio();
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List items = upload.parseRequest(request);
+        Iterator it = items.iterator();
+        while (it.hasNext()) {
+            FileItem item = (FileItem) it.next();
+            if (!item.isFormField()) {
+                audio.setFileName(item.getName());
+                audio.setFileStream(item.getInputStream());
+            }
+        }
+
+        return audio;
     }
 }

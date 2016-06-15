@@ -1,8 +1,8 @@
 package cn.momia.image.upload.impl;
 
 import cn.momia.common.webapp.config.Configuration;
-import cn.momia.image.upload.Image;
-import cn.momia.image.upload.ImageUploadResult;
+import cn.momia.image.upload.model.Image;
+import cn.momia.image.upload.model.UploadResult;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -24,8 +24,8 @@ import java.util.Date;
 public class LocalImageUploaderImpl extends AbstractImageUploader {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    public ImageUploadResult upload(Image image) throws IOException {
-        ImageUploadResult result = new ImageUploadResult();
+    public UploadResult upload(Image image) throws IOException {
+        UploadResult result = new UploadResult();
 
         byte[] imageBytes = IOUtils.toByteArray(image.getFileStream());
 

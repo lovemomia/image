@@ -8,6 +8,7 @@
         <Upload>
             <Local>
                 <Dir>/data/upload/imgs</Dir>
+                <AudioDir>/data/upload/audios</AudioDir>
             </Local>
             <Oss>
                 <AccessId>JsG07PUh4wXM4GLE</AccessId>

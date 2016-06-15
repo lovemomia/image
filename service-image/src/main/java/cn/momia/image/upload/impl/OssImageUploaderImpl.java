@@ -1,8 +1,8 @@
 package cn.momia.image.upload.impl;
 
 import cn.momia.common.webapp.config.Configuration;
-import cn.momia.image.upload.Image;
-import cn.momia.image.upload.ImageUploadResult;
+import cn.momia.image.upload.model.Image;
+import cn.momia.image.upload.model.UploadResult;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -30,13 +30,13 @@ public class OssImageUploaderImpl extends AbstractImageUploader {
         }
     }
 
-    public ImageUploadResult upload(Image image) throws IOException {
+    public UploadResult upload(Image image) throws IOException {
         byte[] imageBytes = IOUtils.toByteArray(image.getFileStream());
 
         String fileName = DigestUtils.md5Hex(imageBytes) + ".jpg"; //上传到OSS的文件名
         uploadFile(fileName, new ByteArrayInputStream(imageBytes), imageBytes.length);
 
-        ImageUploadResult result = new ImageUploadResult(); //返回结果
+        UploadResult result = new UploadResult(); //返回结果
         result.setPath(fileName);
 
         BufferedImage savedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
