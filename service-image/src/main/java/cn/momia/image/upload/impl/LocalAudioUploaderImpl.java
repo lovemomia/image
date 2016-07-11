@@ -56,6 +56,10 @@ public class LocalAudioUploaderImpl extends AbstractAudioUploader {
 
         String fileName = audio.getFileName();
         String ext = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        log.info("ext>>>>>>>>"+ext);
+        if (ext.equals(".tmp")){
+            ext = ".aac";
+        }
 
 
         return StringUtils.join(new String[]{date, audioKey}, File.separator) + ext;
